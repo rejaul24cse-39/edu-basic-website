@@ -1,292 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduPrime - Educational Institution</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="EduPrime — a modern, fully responsive educational institution website" />
+  <title>EduPrime — Educational Institution</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0f172a; --panel:#111827; --muted:#94a3b8; --text:#e5e7eb; --brand:#10b981; --ring: rgba(16,185,129,.35); --card:#0b1220; --border:#1f2937; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; color:var(--text); background:linear-gradient(180deg,#0b1022 0%, #0f172a 60%); line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;}
+    a{color:inherit}
+    .container{width:min(1200px, 92%); margin-inline:auto}
+    .skip-link{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:1rem; top:1rem; width:auto; height:auto; background:#111827; color:#fff; padding:.5rem .75rem; border-radius:.5rem; outline:2px solid var(--brand)}
+    .navbar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(150%) blur(8px); background:rgba(15,23,42,.7); border-bottom:1px solid var(--border)}
+    .nav-wrap{display:flex; align-items:center; justify-content:space-between; padding:.75rem 0}
+    .logo{display:flex; align-items:center; gap:.625rem; font-weight:800; letter-spacing:.3px; text-decoration:none}
+    .logo-badge{display:inline-grid; place-items:center; width:36px; height:36px; border-radius:9px; background:linear-gradient(135deg,var(--brand), #34d399)}
+    .logo-badge span{font-family:Merriweather, serif; font-weight:700; color:#00100a}
+    .nav-menu{display:flex; gap:1rem; align-items:center}
+    .nav-menu a{padding:.5rem .75rem; border-radius:.5rem; color:var(--muted); text-decoration:none}
+    .nav-menu a[aria-current="page"], .nav-menu a:hover{color:#e7ffe7; background:rgba(16,185,129,.15)}
+    .nav-cta{display:flex; gap:.5rem}
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.6rem .95rem; border-radius:.6rem; border:1px solid var(--border); color:#eafff3; background:#0b1220; cursor:pointer}
+    .btn.brand{border-color:transparent; background:linear-gradient(135deg,var(--brand), #34d399)}
+    .btn.brand:hover{filter:saturate(110%)}
+    .btn:focus-visible{outline:2px solid var(--ring); outline-offset:2px}
+    .hamburger{display:none; background:transparent; border:1px solid var(--border); padding:.5rem .6rem; border-radius:.5rem; color:var(--text)}
+    .hero{position:relative; padding:clamp(3rem, 8vw, 6rem) 0; overflow:hidden; border-bottom:1px solid var(--border)}
+    .hero-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(1.5rem, 4vw, 3rem); align-items:center}
+    .kicker{color:#baf7db; letter-spacing:.12em; text-transform:uppercase; font-size:.8rem; font-weight:700}
+    .hero h1{margin:.25rem 0 1rem 0; font-family:Merriweather, serif; font-size:clamp(1.8rem, 4vw, 3rem); line-height:1.15}
+    .hero p{color:var(--muted); margin:0 0 1.2rem}
+    .statbar{display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem}
+    .stat{background:var(--card); border:1px solid var(--border); padding:.8rem 1rem; border-radius:.75rem; min-width:120px; text-align:center}
+    .stat strong{display:block; font-size:1.1rem}
+    .hero-card{background:radial-gradient(1200px 400px at 80% -50%, rgba(16,185,129,.25), transparent 70%), var(--card); border:1px solid var(--border); border-radius:1rem; padding:1rem; box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .hero-card form{display:grid; gap:.75rem}
+    .hero-card label{font-size:.9rem; color:#d7ffe9}
+    .hero-card input,.hero-card select{width:100%; padding:.7rem .8rem; border:1px solid var(--border); border-radius:.6rem; background:#0b1220; color:#fff}
+    section{scroll-margin-top:80px}
+    .section{padding:clamp(2.5rem, 6vw, 4rem) 0}
+    .section h2{font-family:Merriweather, serif; font-size:clamp(1.4rem, 3vw, 2rem); margin:0 0 .75rem}
+    .lead{color:var(--muted); margin:0 0 1.25rem}
+    .grid{display:grid; gap:1rem}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-4{grid-template-columns:repeat(4,1fr)}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:.9rem; padding:1rem}
+    .gallery{grid-template-columns:repeat(6,1fr)}
+    .gallery .tile{aspect-ratio: 4/3; background:#0d1222; border:1px dashed #233047; border-radius:.8rem; display:grid; place-items:center; color:#c9eadd}
+    .faculty-card{display:grid; grid-template-columns:auto 1fr; gap:.8rem; align-items:center}
+    .avatar{width:48px; height:48px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg,#22d3ee,#0ea5e9)}
+    .avatar.alt{background:linear-gradient(135deg,#f472b6,#ef4444)}
+    .avatar.alt2{background:linear-gradient(135deg,#a78bfa,#6366f1)}
+    .subtitle{color:#b6c2d1; font-size:.9rem; margin-top:.15rem}
+    .footer{border-top:1px solid var(--border); background:#0b1022}
+    .footer .cols{display:grid; gap:1rem; grid-template-columns:2fr 1fr 1fr}
+    .footnote{border-top:1px solid var(--border); margin-top:1rem; padding-top:1rem; color:#9fb0c0}
+    @media (max-width: 960px){ .hero-grid{grid-template-columns:1fr} .grid.cols-3{grid-template-columns:repeat(2,1fr)} .grid.cols-4{grid-template-columns:repeat(3,1fr)} .footer .cols{grid-template-columns:1fr 1fr} }
+    @media (max-width: 640px){ .nav-menu{display:none} .hamburger{display:inline-flex} .grid.cols-3,.grid.cols-4{grid-template-columns:1fr} .gallery{grid-template-columns:repeat(2,1fr)} .footer .cols{grid-template-columns:1fr} }
+    @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">
-                <h2>EduPrime</h2>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="navbar" role="banner">
+    <div class="container nav-wrap">
+      <a href="#home" class="logo" aria-label="EduPrime home">
+        <span class="logo-badge" aria-hidden="true"><span>EP</span></span>
+        <span>EduPrime</span>
+      </a>
+      <nav aria-label="Primary" class="nav-menu" id="primaryNav">
+        <a href="#home" class="nav-link" aria-current="page">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#admission" class="nav-link">Admission</a>
+        <a href="#academics" class="nav-link">Academics</a>
+        <a href="#events" class="nav-link">Events</a>
+        <a href="#faculty" class="nav-link">Faculty</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#admission" class="btn brand">Apply Now</a>
+        <button class="hamburger" aria-controls="primaryNav" aria-expanded="false" id="hamburgerBtn" aria-label="Open navigation">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="home">
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">Empowering minds, shaping futures</p>
+          <h1>Quality education for every learner</h1>
+          <p>EduPrime is committed to inclusive, future-ready learning across STEM, arts, and humanities. Join a diverse community where curiosity thrives and support is always within reach.</p>
+          <div class="statbar" role="list" aria-label="School statistics">
+            <div class="stat" role="listitem"><strong>5K+</strong><span>Students</span></div>
+            <div class="stat" role="listitem"><strong>200+</strong><span>Faculty</span></div>
+            <div class="stat" role="listitem"><strong>25+</strong><span>Years</span></div>
+          </div>
+          <div style="margin-top:1.25rem; display:flex; gap:.6rem; flex-wrap:wrap">
+            <a class="btn brand" href="#admission">Start Application</a>
+            <a class="btn" href="#academics">Explore Programs</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Quick inquiry form">
+          <form aria-describedby="inq-help">
+            <div>
+              <label for="inq-name">Your Name</label>
+              <input id="inq-name" name="name" type="text" inputmode="text" autocomplete="name" placeholder="Alex Johnson" />
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#admission" class="nav-link">Admission</a></li>
-                <li><a href="#academics" class="nav-link">Academics</a></li>
-                <li><a href="#events" class="nav-link">Events</a></li>
-                <li><a href="#faculty" class="nav-link">Faculty</a></li>
-                <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <div>
+              <label for="inq-email">Email</label>
+              <input id="inq-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="alex@example.com" />
+            </div>
+            <div>
+              <label for="inq-level">Interested Level</label>
+              <select id="inq-level" name="level">
+                <option>Elementary</option>
+                <option>Middle School</option>
+                <option>High School</option>
+              </select>
+            </div>
+            <p id="inq-help" class="subtitle">We reply within 2 business days.</p>
+            <button type="submit" class="btn brand" aria-label="Submit inquiry">Send Inquiry</button>
+          </form>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <h2>About Us</h2>
+        <p class="lead">We provide a student-centered environment that nurtures curiosity, collaboration, and character. Our holistic approach blends rigorous academics with arts, athletics, and community engagement.</p>
+        <div class="grid cols-3">
+          <article class="card" aria-label="Mission">
+            <h3>Mission</h3>
+            <p>Inspire lifelong learners and global citizens through inclusive, innovative education.</p>
+          </article>
+          <article class="card" aria-label="Vision">
+            <h3>Vision</h3>
+            <p>Every student empowered to lead with knowledge, empathy, and resilience.</p>
+          </article>
+          <article class="card" aria-label="Values">
+            <h3>Values</h3>
+            <p>Integrity, curiosity, excellence, collaboration, and respect for diversity.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="admission">
+      <div class="container">
+        <h2>Admission</h2>
+        <p class="lead">Apply online in minutes. Our team supports families at every step.</p>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>How to Apply</h3>
+            <ol>
+              <li>Complete the online application</li>
+              <li>Upload academic records</li>
+              <li>Take entrance assessment</li>
+              <li>Attend interview</li>
+              <li>Receive decision</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>Key Dates (2026)</h3>
+            <ul>
+              <li>Opens: Jan 1</li>
+              <li>Deadline: Mar 31</li>
+              <li>Exam: Apr 15</li>
+              <li>Results: May 1</li>
             </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+          </article>
+          <article class="card">
+            <h3>Requirements</h3>
+            <ul>
+              <li>Completed form</li>
+              <li>Transcripts</li>
+              <li>Birth certificate</li>
+              <li>2 photos</li>
+              <li>Transfer certificate (if any)</li>
+            </ul>
+          </article>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Welcome to EduPrime</h1>
-            <p>Empowering minds, shaping futures</p>
-            <a href="#admission" class="btn">Apply Now</a>
-        </div>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Us</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>EduPrime is dedicated to providing quality education and fostering academic excellence. We believe in nurturing curious minds and preparing students for a successful future.</p>
-                    <p>Established in 2000, we have been serving the community with commitment to excellence in education, innovation, and character development.</p>
-                </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <h3>5000+</h3>
-                        <p>Students</p>
-                    </div>
-                    <div class="stat">
-                        <h3>200+</h3>
-                        <p>Faculty Members</p>
-                    </div>
-                    <div class="stat">
-                        <h3>25+</h3>
-                        <p>Years of Excellence</p>
-                    </div>
-                </div>
-            </div>
+    <section class="section" id="academics">
+      <div class="container">
+        <h2>Academics</h2>
+        <div class="grid cols-4">
+          <article class="card"><h3>Elementary</h3><p>Foundational skills with play-based, inquiry learning.</p></article>
+          <article class="card"><h3>Middle School</h3><p>Critical thinking, labs, projects, and advisory program.</p></article>
+          <article class="card"><h3>High School</h3><p>Advanced courses, university prep, and career pathways.</p></article>
+          <article class="card"><h3>Special Programs</h3><p>STEM, arts, athletics, language, and service learning.</p></article>
         </div>
+      </div>
     </section>
 
-    <!-- Admission Section -->
-    <section id="admission" class="admission">
-        <div class="container">
-            <h2 class="section-title">Admission</h2>
-            <div class="admission-content">
-                <div class="admission-card">
-                    <h3>Application Process</h3>
-                    <ul>
-                        <li>Fill out the online application form</li>
-                        <li>Submit required documents</li>
-                        <li>Attend entrance examination</li>
-                        <li>Interview with admission committee</li>
-                        <li>Receive admission decision</li>
-                    </ul>
-                </div>
-                <div class="admission-card">
-                    <h3>Important Dates</h3>
-                    <p><strong>Application Opens:</strong> January 1, 2026</p>
-                    <p><strong>Application Deadline:</strong> March 31, 2026</p>
-                    <p><strong>Entrance Exam:</strong> April 15, 2026</p>
-                    <p><strong>Results Announced:</strong> May 1, 2026</p>
-                </div>
-                <div class="admission-card">
-                    <h3>Requirements</h3>
-                    <ul>
-                        <li>Completed application form</li>
-                        <li>Academic transcripts</li>
-                        <li>Birth certificate</li>
-                        <li>Passport-sized photographs</li>
-                        <li>Transfer certificate (if applicable)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Academics Section -->
-    <section id="academics" class="academics">
-        <div class="container">
-            <h2 class="section-title">Academics</h2>
-            <div class="programs">
-                <div class="program-card">
-                    <h3>Elementary School</h3>
-                    <p>Grades 1-5: Building strong foundations in core subjects with interactive learning methods.</p>
-                </div>
-                <div class="program-card">
-                    <h3>Middle School</h3>
-                    <p>Grades 6-8: Comprehensive curriculum focusing on critical thinking and skill development.</p>
-                </div>
-                <div class="program-card">
-                    <h3>High School</h3>
-                    <p>Grades 9-12: Advanced studies preparing students for higher education and careers.</p>
-                </div>
-                <div class="program-card">
-                    <h3>Special Programs</h3>
-                    <p>STEM, Arts, Sports, and Language programs to nurture diverse talents and interests.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events/Notice Board Section -->
-    <section id="events" class="events">
-        <div class="container">
-            <h2 class="section-title">Events & Notice Board</h2>
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-date">Nov 15, 2025</div>
-                    <h3>Annual Sports Day</h3>
-                    <p>Join us for our annual sports competition featuring various athletic events and team sports.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-date">Nov 20, 2025</div>
-                    <h3>Science Fair</h3>
-                    <p>Students showcase innovative science projects and experiments in an interactive exhibition.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-date">Dec 5, 2025</div>
-                    <h3>Parent-Teacher Conference</h3>
-                    <p>An opportunity for parents to meet with teachers and discuss student progress.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-date">Dec 20, 2025</div>
-                    <h3>Winter Break Begins</h3>
-                    <p>School closes for winter holidays. Classes resume on January 5, 2026.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Faculty Section -->
-    <section id="faculty" class="faculty">
-        <div class="container">
-            <h2 class="section-title">Our Faculty</h2>
-            <div class="faculty-grid">
-                <div class="faculty-card">
-                    <div class="faculty-img">DR</div>
-                    <h3>Dr. Sarah Johnson</h3>
-                    <p class="faculty-title">Principal</p>
-                    <p>Ph.D. in Educational Leadership</p>
-                </div>
-                <div class="faculty-card">
-                    <div class="faculty-img">MR</div>
-                    <h3>Prof. Michael Roberts</h3>
-                    <p class="faculty-title">Head of Science Department</p>
-                    <p>M.Sc. in Physics, 15 years experience</p>
-                </div>
-                <div class="faculty-card">
-                    <div class="faculty-img">EM</div>
-                    <h3>Ms. Emily Martinez</h3>
-                    <p class="faculty-title">Mathematics Teacher</p>
-                    <p>M.A. in Mathematics Education</p>
-                </div>
-                <div class="faculty-card">
-                    <div class="faculty-img">JB</div>
-                    <h3>Mr. James Brown</h3>
-                    <p class="faculty-title">English Literature Teacher</p>
-                    <p>M.A. in English, Published Author</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Campus Building</div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Science Lab</div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Library</div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Sports Ground</div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Computer Lab</div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">Auditorium</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Contact Us</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="info-item">
-                        <h3>Address</h3>
-                        <p>123 Education Street<br>University District<br>City, State 12345</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Phone</h3>
-                        <p>+1 (555) 123-4567<br>+1 (555) 123-4568</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Email</h3>
-                        <p>info@eduprime.edu<br>admissions@eduprime.edu</p>
-                    </div>
-                    <div class="info-item">
-                        <h3>Office Hours</h3>
-                        <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <input type="text" placeholder="Subject" required>
-                        <textarea placeholder="Your Message" rows="5" required></textarea>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>EduPrime</h3>
-                    <p>Empowering minds, shaping futures through quality education and holistic development.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#admission">Admission</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="#">Facebook</a>
-                        <a href="#">Twitter</a>
-                        <a href="#">LinkedIn</a>
-                        <a href="#">Instagram</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 EduPrime Educational Institution. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+    <section class="section" id="events">
+      <div class="container">
+        <h2>Events &amp; Notice Board</h2>
+        <div class="grid cols-4">
+          <article class="card"><h3>Nov 15, 2025 — Sports Day</h3><p>Annual athletics meet with student teams and community guests.</p></article>
+          <article class="card"><h3>Nov 20, 2025 — Science Fair</h3><p>Interactive exhibits and student-led demonstrations.</p></article>
+          <article class="card"><h3>Dec 5, 2025 — PT Conference</h3><p>Meet teachers to discuss progress and goals.</p></article>
+          <article class="card"><h3>Dec 20, 2025 — Winter Break</h
